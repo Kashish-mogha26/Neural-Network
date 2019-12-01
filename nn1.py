@@ -50,8 +50,7 @@ if __name__ == "__main__":
     print "Random starting synaptic weights: "
     print neural_network.synaptic_weights
 
-    # The training set. We have 4 examples, each consisting of 3 input values
-    # and 1 output value.
+    # The training set.
     training_set_inputs = array([[0, 0, 1], [1, 1, 1], [1, 0, 1], [0, 1, 1]])
     training_set_outputs = array([[0, 1, 1, 0]]).T
 
