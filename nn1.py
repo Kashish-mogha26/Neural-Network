@@ -6,6 +6,7 @@ Created on Sun Dec  1 20:26:19 2019
 """
 
 from numpy import exp, array, random, dot
+import numpy as np
 
 
 class NeuralNetwork():
@@ -20,13 +21,18 @@ class NeuralNetwork():
         return x * (1 - x)
 
     def train(self, training_set_inputs, training_set_outputs, number_of_training_iterations):
+        # Use range() instead of xrange() if possible, because xrange() is depracated in python3.
         for iteration in xrange(number_of_training_iterations):
             # Pass the training set through our neural network (a single neuron).
             output = self.think(training_set_inputs)
 
             # Calculate the error (The difference between the desired output
             # and the predicted output).
+            
+            # This is a very naive error calculation and might not work accurately. You might wanna switch to Mean Square Error in this case.
             error = training_set_outputs - output
+            # mse = np.sum(error**2) / len(error)
+            # I haven't run the code so I don't know the dimensions and all, you may correct my mse calculation as well.
 
             # Multiply the error by the input and again by the gradient of the Sigmoid curve.
             # This means less confident weights are adjusted more.
@@ -44,18 +50,19 @@ class NeuralNetwork():
 
 if __name__ == "__main__":
 
-    #Intialise a single neuron neural network.
+    #Intialize a single neuron neural network.
     neural_network = NeuralNetwork()
 
     print "Random starting synaptic weights: "
     print neural_network.synaptic_weights
 
     # The training set.
+    # I would suggest you change your inputs. Because only 4 samples might not be enough for a DNN. Again, I might be wrong cause I haven't run the code.
     training_set_inputs = array([[0, 0, 1], [1, 1, 1], [1, 0, 1], [0, 1, 1]])
     training_set_outputs = array([[0, 1, 1, 0]]).T
 
     # Train the neural network using a training set.
-    # Do it 10,000 times and make small adjustments each time.
+    # Do it 10,000 times and make small adjustments each time. (Aren't 10,000 epochs way too much for just 4 examples? Might overfit!)
     neural_network.train(training_set_inputs, training_set_outputs, 10000)
 
     print "New synaptic weights after training: "
